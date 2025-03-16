@@ -10,7 +10,9 @@ load_dotenv()
 remotes = {}
 
 remotes['https://v4.ident.me/'] =  ""
-remotes['https://checkip.amazonaws.com'] =  ""
+remotes['https://api.ipify.org'] =  ""
+
+freq = int(os.environ.get("UPDATE_FREQUENCY_MIN"))
 
 def rand_remote():
     count_keys = len(remotes.keys())
@@ -19,7 +21,9 @@ def rand_remote():
     return rand_url
 
 def get_wan_ip():
-    wan_v4 = urllib.request.urlopen(rand_remote()).read().decode('utf8')
+    rand_url =  rand_remote()
+    wan_v4 = urllib.request.urlopen(rand_url).read().decode('utf8')
+    print(rand_url)
     return wan_v4
 
 def get_datetime():
@@ -42,37 +46,46 @@ def get_current_dns_ip():
     return dns_ip
 
 
-def update_record():
+def update_record(wan_ip):
     record_response = init_client().dns.records.update(
         dns_record_id=os.environ.get("DNS_RECORD_ID"),
         zone_id=os.environ.get("ZONE_ID"),
         name= os.environ.get("NAME"),
-        content = get_wan_ip(),
+        content = wan_ip, #get_wan_ip(),
         proxied=False,
         type=os.environ.get("TYPE")
     )
-    return record_response
+    print(record_response)
 
 
 def equality_check():
     #first check history for the last dns ip
     #if history is empty, set entry
-    if get_wan_ip()!=last_dns_ip['ip']:
-        #if last dns not equal to wan update record both on cloudflar and locally
-        last_dns_ip['ip']=update_record().content
+    wan_ip = get_wan_ip()
+    if wan_ip != last_dns_ip['ip']:
+        # if wan ip doesnt equal the last entry, update the dns record on clouldflare
+        update_record(wan_ip)
+        # update local entry
+        last_dns_ip['ip']= wan_ip
+
+    elif wan_ip == last_dns_ip['ip']:
+        # if wan ip = dns ip, then  no update is needed, do nothing
+        print(('no change', datetime.datetime.now()))
+
     else:
-        #if wan ip = dns ip, then  no update is needed, do nothing
+        # represents all other outcomes...i.e errors
+        print(('errored', datetime.datetime.now()))
         pass
 
+# set initial ip
 last_dns_ip = {}
 last_dns_ip['ip']= get_current_dns_ip()
-
 
 while True:
     try:
         equality_check()
     except:
         pass
-    time.sleep(60*5)
+    time.sleep(freq*60)
 
 
