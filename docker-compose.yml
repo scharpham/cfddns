@@ -3,11 +3,4 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        - UPDATE_FREQUENCY_MIN:${UPDATE_FREQUENCY_MIN}
-        - CLOUDFLARE_EMAIL:${CLOUDFLARE_EMAIL}
-        - CLOUDFLARE_API_KEY:${CLOUDFLARE_API_KEY}
-        - ZONE_ID:${ZONE_ID}
-        - DNS_RECORD_ID:${DNS_RECORD_ID}
-        - NAME:${NAME}
     restart: unless-stopped
