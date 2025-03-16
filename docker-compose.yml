@@ -1,0 +1,7 @@
+services:
+  cfddns:
+    build:
+      dockerfile: Dockerfile
+      env_file:
+        -./vars.env
+    restart: unless_stopped
