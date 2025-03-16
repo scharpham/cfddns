@@ -3,6 +3,7 @@ RUN apk update
 RUN apk upgrade
 COPY checker_updater.py .
 COPY requirements.txt .
-COPY ./env .
+COPY .env .
+WORKDIR .
 RUN pip install -r requirements.txt
 CMD ["python", "./checker_updater.py"]
