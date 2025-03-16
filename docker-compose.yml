@@ -10,4 +10,4 @@ services:
         - DNS_RECORD_ID=${DNS_RECORD_ID}
         - NAME =${NAME}
         - TYPE=${TYPE}
-    restart: unless_stopped
+    restart: unless-stopped
