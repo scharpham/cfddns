@@ -4,7 +4,6 @@ RUN apk upgrade
 RUN apk add --no-cache nano
 COPY checker_updater.py .
 COPY requirements.txt .
-COPY .env .
 WORKDIR .
 RUN pip install -r requirements.txt
 CMD ["python", "-u", "./checker_updater.py"]

@@ -4,11 +4,11 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      CLOUDFLARE_EMAIL:
-      CLOUDFLARE_API_KEY:
-      ZONE_ID:
-      DNS_RECORD_ID:
-      NAME:
-      TYPE:
-      UPDATE_FREQUENCY_MIN:
+      - CLOUDFLARE_EMAIL=
+      - CLOUDFLARE_API_KEY=
+      - ZONE_ID=
+      - DNS_RECORD_ID=
+      - NAME=
+      - TYPE=
+      - UPDATE_FREQUENCY_MIN=
     restart: unless-stopped
