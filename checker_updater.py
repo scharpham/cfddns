@@ -43,7 +43,7 @@ def get_current_dns_ip():
         zone_id=os.environ.get("ZONE_ID"),
     )
     dns_ip = page.result[0].content
-    print("dns ip from cloudflare "+ dns_ip)
+    print("existing dns record address "+ dns_ip)
     return dns_ip
 
 
