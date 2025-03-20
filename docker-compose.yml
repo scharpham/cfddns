@@ -3,5 +3,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      tty: true
+      args:
+        CLOUDFLARE_EMAIL:
+        CLOUDFLARE_API_KEY:
+        ZONE_ID:
+        DNS_RECORD_ID:
+        NAME:
+        TYPE:
+        UPDATE_FREQUENCY_MIN:
     restart: unless-stopped
