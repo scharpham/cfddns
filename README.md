@@ -6,8 +6,10 @@ Utilizes Cloudlfare's existing python api to update dns record on whatever frequ
 
 ## Getting started
 
-Ensure docker is installed<br>
-**this will not likely play nicely with portainer because it lacks ability to select files in docker compose(stack)<br>
-mkdir a new directory,<br>
-git clone this repo to that directory<br>
-edit variables docker-compose.yml to match the record you are trying to update<br>
+1. Ensure docker is installed<br>
+2. mkdir a new directory example 'mkdir cfddns"<br>
+3. cd into directory, example 'cd cfddfs'
+4. clone repo to you current working directory 'git clone' followed by the https link<br>
+5. edit variables docker-compose.yml to match the cloudflare record you are trying to dynamically update<br>
+
+**This will not likely play nicely with portainer because it lacks ability to select files in docker compose(stack)<br>
